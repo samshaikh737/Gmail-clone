@@ -1,0 +1,26 @@
+.emailSectionCard{
+    display: flex;
+    align-items: center;
+    border-bottom-width: 2px;
+    padding: 15px;
+    min-width: 200px;   
+    cursor: pointer;
+    border-width: 0 !important;
+    color: gray;
+    border-right: 1px solid white;
+}
+
+.emailSectionCard > h4{
+    font-size: 14px;
+    margin-left: 15px;
+}
+
+.emailSectionCard:hover {
+    background-color: whitesmoke;
+    border-width: 3px !important;     
+}
+
+.emailSectionCard-active{
+    background-color: whitesmoke;
+    border-width: 3px !important; 
+}

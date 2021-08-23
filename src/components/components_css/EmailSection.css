@@ -1,0 +1,9 @@
+.email-section{
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid whitesmoke;
+    background-color: white;
+    z-index: 2;
+}

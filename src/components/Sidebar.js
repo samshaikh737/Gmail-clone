@@ -5,6 +5,8 @@ import "./components_css/Sidebar.css"
 import SidebarOption from './SidebarOption';
 import SidebarFooter from './SidebarFooter';
 
+//routers
+import { useHistory } from "react-router-dom";
 
 //materials
 import { Button } from "@material-ui/core";
@@ -15,14 +17,22 @@ import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 import NearMeIcon from '@material-ui/icons/NearMe';
 import NoteIcon from '@material-ui/icons/Note';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useStateValue } from '../MyRedux/Provider';
 
 function Sidebar() {
+    const history = useHistory();
+    const [data,updateData] =  useStateValue();
+
+    const handleComposeBtn = ()=>{
+        updateData({"type":"update_showSendMail",'value': true});
+    }
+
     return (
         <div className="Sidebar" >
-            <Button startIcon={<AddIcon fontSize="large" />} className="sidebar_compose" >COMPOSE</Button>
+            <Button onClick={handleComposeBtn} startIcon={<AddIcon fontSize="large"/>} className="sidebar_compose" >COMPOSE</Button>
 
             <div className="sidebar-option-container">
-                <SidebarOption Icon={InboxIcon} title="Inbox" number={54} selected={true} />
+                <SidebarOption Icon={InboxIcon} title="Inbox" number={54} selected={true} click={()=> history.push("/")} />
                 <SidebarOption Icon={StarIcon} title="Starred" />
                 <SidebarOption Icon={LabelImportantIcon} title="Important" />
 

@@ -1,0 +1,79 @@
+.mail{
+    flex: 1;
+    background-color: whitesmoke;
+    overflow: hidden;
+}
+
+.mail .mail-tools{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-bottom: 2px solid #e8e8e8;
+}
+
+.mail .mail-tools .mail-tools-left,
+.mail .mail-tools .mail-tools-right{
+    display: flex;
+    align-items: center;
+}
+
+.mail .mail-body{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: white;
+    margin: 30px;
+    height: 80vh;
+    overflow: scroll;
+    box-shadow: 0 5px 7px 0px rgb(0 0 0 / 24%);
+
+    position: relative;
+}
+
+
+.mail .mail-body::-webkit-scrollbar{
+    overflow: hidden;
+}
+
+.mail .mail-body .mail-body-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #e8e8e8;
+
+    margin: -20px;
+    padding: 10px;
+
+}
+
+.mail .mail-body .mail-body-header > .left{
+    display: flex;
+    align-items: center;
+
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+.mail .mail-body .mail-body-header > .left > svg{
+    color: orange;
+    margin: 0 10px;
+}
+
+.mail .mail-body .mail-body-header > .left > p{
+    font-size: 14px;
+    color: gray;
+}
+
+.mail .mail-body .mail-body-header > .right{
+    font-size: 14px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #4e4e4e;
+}
+
+.mail .mail-body .mail-body-contain-message{
+    margin-top: 30px;
+    font-size: 15px;
+    font-family: sans-serif;
+}

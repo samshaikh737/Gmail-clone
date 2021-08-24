@@ -1,6 +1,5 @@
 import "./App.css"
 import React from 'react';
-import { Counter } from './features/counter/Counter';
 
 //router
 
@@ -11,8 +10,15 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Mail from "./components/Mail";
 import EmailList from "./components/EmailList";
+import SendMail from "./components/SendMail";
+
+//my own redux
+import { useStateValue } from "./MyRedux/Provider";
 
 function App() {
+
+  const [data,updateData] = useStateValue();
+  
   return (
     <Router>
       <div className="App">
@@ -28,7 +34,10 @@ function App() {
               <EmailList />
             </Route>
           </Switch>
+
         </div>
+        { data?.showSendMail && <SendMail /> }
+
       </div>
     </Router>
   );

@@ -6,6 +6,7 @@ import "./components_css/EmailList.css";
 //components
 import EmailSettingHeader from './EmailSettingHeader';
 import EmailSection from './EmailSection';
+import EmailListRow from './EmailListRow';
 
 
 function EmailList() {
@@ -13,6 +14,7 @@ function EmailList() {
         <div className="email-list" >
             <EmailSettingHeader />
             <EmailSection />
+            <EmailListRow />
         </div>
     )
 }

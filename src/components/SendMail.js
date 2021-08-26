@@ -1,17 +1,33 @@
 import React from 'react';
 
+//css
+import "./components_css/SendMail.css"
+
 //materials
 import { IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 
 import { useStateValue } from '../MyRedux/Provider';
 
-function SendMail() {
-    const [data,updateData] =  useStateValue();
+import { useForm } from "react-hook-form";
 
-    const handleCloseBtn = ()=>{
-        updateData({"type":"update_showSendMail",'value': false});
+function SendMail() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const onFormSubmitFun = (data) => {
+        console.log(data);
     }
+
+    const [data, updateData] = useStateValue();
+
+    const handleCloseBtn = () => {
+        updateData({ "type": "update_showSendMail", 'value': false });
+    }
+
 
     return (
         <div className="sendMail" >
@@ -23,10 +39,10 @@ function SendMail() {
             </div>
 
             <div className="send-mail-body">
-                <form>
-                    <input type="text" />
-                    <input type="text" />
-                    <textarea name="" id="" cols="10" rows="20">    </textarea>
+                <form onSubmit={handleSubmit(onFormSubmitFun)} >
+                    <input required={true} type="email" placeholder="To" name="to" {...register('to',{ required: true })}  />
+                    <input required={true} type="text" placeholder="Subject" name="subject" {...register('subject',{ required: true })}  />
+                    <textarea required={true}  placeholder='Message' name="message" id="" cols="20" rows="15" {...register('message',{ required: true })}  />
 
                     <div className="send-mail-form-btn-container">
                         <button id="sendMailBtn">Send</button>

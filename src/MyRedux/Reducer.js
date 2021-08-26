@@ -1,5 +1,5 @@
 export const database = {
-    showSendMail : true
+    showSendMail : false,
 }
 
 export const Reducer = (state,action)=>{

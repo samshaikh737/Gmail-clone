@@ -36,7 +36,7 @@ function App() {
           </Switch>
 
         </div>
-        { data?.showSendMail && <SendMail /> }
+        { data.showSendMail && <SendMail /> }
 
       </div>
     </Router>

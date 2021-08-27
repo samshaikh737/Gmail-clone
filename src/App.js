@@ -11,36 +11,64 @@ import Sidebar from "./components/Sidebar";
 import Mail from "./components/Mail";
 import EmailList from "./components/EmailList";
 import SendMail from "./components/SendMail";
+import Login from "./components/Login";
 
 //my own redux
 import { useStateValue } from "./MyRedux/Provider";
 
+import { auth } from "./firebaseConfig";
+
 function App() {
 
-  const [data,updateData] = useStateValue();
-  
-  return (
-    <Router>
-      <div className="App">
-        <Header />
-        <div className="app-body" >
-          <Sidebar />
+  const [data, updateData] = useStateValue();
 
-          <Switch>
-            <Route path="/mail"  exact >
-              <Mail />
-            </Route>
-            <Route path="/" exact >
-              <EmailList />
-            </Route>
-          </Switch>
+  const checkUserLogin = () => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        updateData({
+          "type": "update_user",
+          'payload': {
+            'userName': user?.displayName,
+            "email": user?.email,
+            "photo": user?.photoURL
+          }
+        })
+      }
+    })
+};
 
-        </div>
-        { data.showSendMail && <SendMail /> }
+React.useEffect(() => {
+  checkUserLogin();
+}, [])
 
-      </div>
-    </Router>
-  );
+return (
+  <Router>
+    <div className="App">
+      <Switch>
+        {!data.user ? <Login /> : (
+          <>
+            <Header />
+
+            <div className="app-body" >
+              <Sidebar />
+
+              <Route path="/mail" exact >
+                <Mail />
+              </Route>
+
+              <Route path="/" exact >
+                <EmailList />
+              </Route>
+
+            </div>
+
+            {data.showSendMail && <SendMail />}
+          </>
+        )}
+      </Switch>
+    </div>
+  </Router>
+);
 }
 
 export default App;

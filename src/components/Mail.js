@@ -22,17 +22,31 @@ import UnfoldMoreIcon from '@material-ui/icons/UnfoldMore';
 import PrintIcon from '@material-ui/icons/Print';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
-function Mail() {
+//own redux
+import { useStateValue } from '../MyRedux/Provider';
 
+import { db } from "../firebaseConfig";
+
+function Mail() {
     const history = useHistory();
+    const [ { mailPage } ,updateMail] = useStateValue();
+
+    const goBackFun = ()=>{
+        history.goBack()
+    }
+
+    const deleteMail = (id)=>{
+        if(!id){ 
+            alert("email not found");
+        }else db.collection('emails').doc(id).delete();
+        goBackFun()
+    }
 
     return (
         <div className="mail" >
             <div className="mail-tools">
                 <div className="mail-tools-left">
-                    <IconButton onClick={() => {
-                        history.goBack()
-                    }}>
+                    <IconButton title="Go Back" onClick={goBackFun}>
                         <ArrowBackIcon />
                     </IconButton>
                     <IconButton>
@@ -43,7 +57,7 @@ function Mail() {
                         <ErrorIcon />
                     </IconButton>
 
-                    <IconButton>
+                    <IconButton title='delete email' onClick={()=>deleteMail(mailPage?.id)} >
                         <DeleteIcon />
                     </IconButton>
 
@@ -87,16 +101,16 @@ function Mail() {
                 <div className="mail-body-contain">
                     <div className="mail-body-header">
                         <div className="left">
-                            <h4>You've added "Allow access from anywhere (0.0.0.0/0)"</h4>
+                            <h4>{mailPage?.subject}</h4>
                             <LabelImportantIcon />
-                            <p>{"<mongodb-atlas@mongodb.com>"}</p>
+                            <p>{`<${mailPage?.title}>`}</p>
                         </div>
                         <div className="right">
-                            <p> Aug 8, 2021, 6:43 PM </p>
+                            <p>{mailPage?.time}</p>
                         </div>
                     </div>
                     <div className="mail-body-contain-message">
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti distinctio, iste excepturi veritatis et magni minima magnam impedit at quam quos quo nemo numquam facilis eligendi.</p>
+                        <p>{mailPage?.desc}</p>
                     </div>
                 </div>
             </div>

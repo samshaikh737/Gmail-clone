@@ -1,5 +1,8 @@
 import React from 'react';
 
+//owm redux
+import { useStateValue } from "../MyRedux/Provider"
+
 //css
 import "./components_css/EmailListComponent.css";
 
@@ -11,11 +14,27 @@ import { Checkbox, IconButton } from "@material-ui/core";
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 
-function EmailListComponent({id, title, subject, desc, time}) {
+
+function EmailListComponent({ id, title, subject, desc, time }) {
     const history = useHistory();
+    const [{ mailPage }, updateMail] = useStateValue();
+
+    const openMail = () => {
+        updateMail({
+            'type': 'show_mail',
+            'payload': {
+                'id': id,
+                'title': title,
+                'subject': subject,
+                'desc': desc,
+                'time': time
+            }
+        })
+        history.push("/mail");
+    }
 
     return (
-        <div className="email-list-component" onClick={()=> history.push("/mail") } >
+        <div className="email-list-component" onClick={openMail} >
             <div className="email-list-option">
                 <Checkbox />
                 <IconButton>

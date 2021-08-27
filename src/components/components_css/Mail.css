@@ -72,6 +72,11 @@
     color: #4e4e4e;
 }
 
+.mail .mail-body .mail-body-header > .right > p{
+    white-space: nowrap;
+    margin-left: 5px;
+}
+
 .mail .mail-body .mail-body-contain-message{
     margin-top: 30px;
     font-size: 15px;

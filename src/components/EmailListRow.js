@@ -1,13 +1,37 @@
 import React from 'react';
 import EmailListComponent from './EmailListComponent';
 
+//firebase
+import { db } from '../firebaseConfig';
+
 function EmailListRow() {
+    const [emailList,setemailList] = React.useState([]);
+
+    const getEmail = ()=>{        
+        db.collection('emails').orderBy('time','desc').onSnapshot((data)=>{
+            setemailList(
+                data.docs.map((d)=>({"id":d.id,"data":d.data()}))
+            )
+        });
+    }
+    
+    React.useEffect(()=>{
+        getEmail();
+    },[])
  
     return (
         <div className="EmailListRow">
             {
-            [1,2,3,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,3,4,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1].map((d)=>{
-                return <EmailListComponent id={d} subject="Web development" title="hello you want to learn progremming" desc="we er if you want to learn anything you want please ome and say" time="25 aug" />
+            emailList &&  emailList.map(({id, data: { to , subject , message, time }})=>{
+                return <EmailListComponent 
+                    id={id}
+                     key={id}
+                    title={to}
+                    subject={subject}
+                    desc={message}
+                    time={new Date(time?.seconds * 1000).toUTCString() } 
+                    
+                />
             })
             } 
         </div>

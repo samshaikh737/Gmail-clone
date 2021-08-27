@@ -37,6 +37,10 @@
 
 .email-list-component > .email-list-message > span{
     color: gray;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 400px;
+    text-overflow: ellipsis;
 }
 
 .email-list-component > .email-list-title{
@@ -51,4 +55,7 @@
     font-weight: bold;
     font-family: sans-serif;
     color: rgb(99 90 90 / 80%);
+
+    white-space: nowrap;
+    margin-left: 10px;
 }

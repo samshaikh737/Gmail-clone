@@ -9,9 +9,23 @@ import AppsIcon from '@material-ui/icons/Apps';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-import { IconButton ,Avatar } from '@material-ui/core';
+import { IconButton, Avatar } from '@material-ui/core';
+
+import { useStateValue } from '../MyRedux/Provider';
+
+import { auth } from "../firebaseConfig";
 
 function Header() {
+    const [{ user }, updateUser] = useStateValue();
+
+    const logout = () => {
+        auth.signOut().then(() => {
+            updateUser({
+                type: "logout"
+            })
+        })
+    }
+
     return (
         <div className="Header" >
             <div className="header_left">
@@ -22,7 +36,7 @@ function Header() {
                     <img src="gmail-logo.png" alt="gmail logo" />
                 </div>
             </div>
-            <div className="header_center"> 
+            <div className="header_center">
                 <SearchIcon />
                 <input type="text" placeholder="Search mail" />
                 <KeyboardArrowDownIcon className="downArrowIcon" />
@@ -34,7 +48,11 @@ function Header() {
                 <IconButton>
                     <NotificationsIcon />
                 </IconButton>
-                <Avatar src="https://yt3.ggpht.com/yti/APfAmoGnAQ5H2N_CHToizFe2-P6Ep7h1jhZQOO8p_oLcmw=s88-c-k-c0x00ffffff-no-rj-mo" />
+                {
+                    user?.photo ? <IconButton title="Logout" onClick={logout} >
+                        <Avatar src={user.photo} />
+                    </IconButton> : <Avatar />
+                }
             </div>
         </div>
     )
